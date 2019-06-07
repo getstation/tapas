@@ -10,10 +10,16 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    // You are not allowed to modify the `webPreferences` ;)
     webPreferences: {
+
+      // ------
+      // You are not allowed to change the value
+      // of this 2 flags
       nodeIntegration: false,
       enableRemoteModule: false,
+      // ------
+
+
     },
   });
 
