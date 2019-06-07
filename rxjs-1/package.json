@@ -1,0 +1,15 @@
+{
+  "name": "rxjs-1",
+  "version": "1.0.0",
+  "description": "The objective of this challenge is to implement a live leaderboard of a car race using RxJS.",
+  "main": "race.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csvsync": "^1.1.0",
+    "rxjs": "^6.5.2"
+  }
+}
