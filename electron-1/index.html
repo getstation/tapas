@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Electron 1</title>
   <style>
     #undefined-window-bx {
       display: block;
@@ -18,8 +18,9 @@
   </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <h1>Electron 1</h1>
     <section id="undefined-window-bx">
+      <h2>Challenge</h2>
       <p>
         <code>window.bx</code> is not defined. You must find a way to implement it and make it available!
       </p>
@@ -33,11 +34,18 @@
       </p>
     </section>
     <section id="defined-window-bx" class="hidden">
+      <h2>Congrats</h2>
+      <code>window.bx exists</code>
+      <ul>
+        <li><code>bx.name</code><span id="bx-name"></span></li>
+        <li><code>bx.version</code><span id="bx-version"></span></li>
+      </ul>
     </section>
     <script>
       if (window.bx){
+        document.querySelector('#bx-name').innerHTML = window.bx.name;
+        document.querySelector('#bx-version').innerHTML = window.bx.version;
         document.querySelector('#undefined-window-bx').classList.add('hidden');
-      } else {
         document.querySelector('#defined-window-bx').classList.remove('hidden');
       }
     </script>
