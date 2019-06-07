@@ -10,6 +10,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    // You are not allowed to modify the `webPreferences` ;)
     webPreferences: {
       nodeIntegration: false,
       enableRemoteModule: false,
