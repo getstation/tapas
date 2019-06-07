@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  <style>
+    #undefined-window-bx {
+      display: block;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    li > span {
+      padding-left: 6px;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <section id="undefined-window-bx">
+      <p>
+        <code>window.bx</code> is not defined. You must find a way to implement it and make it available!
+      </p>
+      It should have the following properties:
+      <ul>
+        <li><code>bx.name</code><span>should be the <a href="https://github.com/electron/electron/blob/master/docs/api/app.md#appgetname">name of this application</a></span></li>
+        <li><code>bx.version</code><span>should be the <a href="https://github.com/electron/electron/blob/master/docs/api/app.md#appgetversion">version of this application</a></span></li>
+      </ul>
+      <p>
+        <i>NB: You should <b>NOT</b> use the <a href="https://electronjs.org/docs/api/remote">remote</a> electron API.</i>
+      </p>
+    </section>
+    <section id="defined-window-bx" class="hidden">
+    </section>
+    <script>
+      if (window.bx){
+        document.querySelector('#undefined-window-bx').classList.add('hidden');
+      } else {
+        document.querySelector('#defined-window-bx').classList.remove('hidden');
+      }
+    </script>
+  </body>
+</html>
