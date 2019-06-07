@@ -13,7 +13,13 @@ class Race extends EventEmitter {
       {
         returnObject: true
       }
-    );
+    ).map(data => ({
+      ...data,
+      'Time car 1': parseInt(data['Time car 1'], 10),
+      'Time car 2': parseInt(data['Time car 2'], 10),
+      'Location car 1': parseInt(data['Location car 1'], 10),
+      'Location car 2': parseInt(data['Location car 2'], 10)
+    }))
   }
 
   start() {
