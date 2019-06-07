@@ -75,7 +75,7 @@ const race = getRace();
 const leaderBoard$ = getLeaderBoard(race);
 
 leaderBoard$.subscribe(leaderBoard => {
-  const T = new Table()
+  const t = new Table()
   leaderBoard.forEach(function(car) {
     t.cell('#', car.position)
     t.cell('Name', car.carName)
@@ -83,7 +83,7 @@ leaderBoard$.subscribe(leaderBoard => {
     t.cell('Gap Time', `${car.leaderGapTime}ms`)
     t.newRow()
   });
-  process.stdout.write(`${T.toString()}\r`);
+  process.stdout.write(`${t.toString()}\r`);
 });
 
 race.start();
