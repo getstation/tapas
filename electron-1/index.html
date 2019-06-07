@@ -26,8 +26,8 @@
       </p>
       It should have the following properties:
       <ul>
-        <li><code>bx.name</code><span>should be the <a href="https://github.com/electron/electron/blob/master/docs/api/app.md#appgetname">name of this application</a></span></li>
-        <li><code>bx.version</code><span>should be the <a href="https://github.com/electron/electron/blob/master/docs/api/app.md#appgetversion">version of this application</a></span></li>
+        <li><code>bx.getName()</code><span>returns a promise resolving to the <a href="https://github.com/electron/electron/blob/master/docs/api/app.md#appgetname">name of this application</a></span></li>
+        <li><code>bx.getVersion()</code><span>returns a promise resolving to the <a href="https://github.com/electron/electron/blob/master/docs/api/app.md#appgetversion">version of this application</a></span></li>
       </ul>
       <p>
         <i>NB: You should <b>NOT</b> use the <a href="https://electronjs.org/docs/api/remote">remote</a> electron API.</i>
@@ -37,14 +37,18 @@
       <h2>Congrats</h2>
       <code>window.bx exists</code>
       <ul>
-        <li><code>bx.name</code><span id="bx-name"></span></li>
-        <li><code>bx.version</code><span id="bx-version"></span></li>
+        <li><code>bx.getName()</code><span id="bx-name"></span></li>
+        <li><code>bx.getVersion()</code><span id="bx-version"></span></li>
       </ul>
     </section>
     <script>
       if (window.bx){
-        document.querySelector('#bx-name').innerHTML = window.bx.name;
-        document.querySelector('#bx-version').innerHTML = window.bx.version;
+        window.bx.getName().then(name => {
+          document.querySelector('#bx-name').innerHTML = name;
+        });
+        window.bx.getVersion().then(version => {
+          document.querySelector('#bx-version').innerHTML = version;
+        });
         document.querySelector('#undefined-window-bx').classList.add('hidden');
         document.querySelector('#defined-window-bx').classList.remove('hidden');
       }
