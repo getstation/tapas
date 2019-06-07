@@ -30,6 +30,10 @@ race.on('end', () => {
 race.start();
 ```
 
+## Constraints
+- Use the most of RxJS in your implementation
+- Use the provided `getRace` exported in `race.js` to test your implementation
+
 ## Challenge
 ### Calculate the speed
 
@@ -87,9 +91,17 @@ race.start();
 
 There are several ways of [calculating the time gap](https://cyclingtips.com/2012/06/how-time-gaps-are-calculated/), but we'll chose the simplest one: if, at a given time, the leader is at position X, the time gap of racer is the time it will take them to reach X with their current speed.
 
-## Constraints
-- Use the most of RxJS in your implementation
-- Use the provided `getRace` exported in `race.js` to test your implementation
+## Preparation
+
+```sh
+cd tapas/rxjs-1
+
+# Install dependencies
+npm install
+
+# Run the example
+node example.js
+```
 
 ## Resources for RxJS
  - [The introduction to Reactive Programming you've been missing](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
