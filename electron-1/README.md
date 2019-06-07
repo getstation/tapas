@@ -26,7 +26,7 @@ _Instructions are also visible from the application itself until you solved the 
 ## Constraints
 
 - You are **NOT** allowed to enable `nodeIntegration`
-- You are **NOT** aollowed to use the [remote](https://electronjs.org/docs/api/remote) electron API
+- You are **NOT** allowed to use the [remote](https://electronjs.org/docs/api/remote) electron API
 
 ## Preparation
 
