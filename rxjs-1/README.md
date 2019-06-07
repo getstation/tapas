@@ -13,7 +13,7 @@ const { getRace } = require('./race');
 const race = getRace();
 
 // race is an event-emitter
-race.on('data', (time, carName, xLocation) => {
+race.on('data', ({ time, carName, xLocation }) => {
   // time (number) - is the time in ms since the begining of the race
   // carName (string) - the name of the car
   // xLocation (number) - the distance (in meter) of the car `carName` from

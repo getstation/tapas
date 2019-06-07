@@ -31,8 +31,16 @@ class Race extends EventEmitter {
   _tick() {
     const item = this.data[this.index];
 
-    this.emit('data', item['Time car 1'], 'Lightning McQueen', item['Location car 1']);
-    this.emit('data', item['Time car 2'], 'The King', item['Location car 2']);
+    this.emit('data', {
+      time: item['Time car 1'],
+      carName: 'Lightning McQueen',
+      xLocation: item['Location car 1']
+    });
+    this.emit('data', {
+      time: item['Time car 2'],
+      carName: 'The King', 
+      xLocation: item['Location car 2']
+    });
 
     this.index += 1;
   }
