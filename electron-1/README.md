@@ -1,5 +1,5 @@
 # Electron and injected APIs
-The objective of this challenge is to declare and implement an API on the Window object in an Electron application.
+The objective of this challenge is to declare and implement a new API on the Window object in an Electron application.
 
 ## Challenge
 Define `window.bx` global in the main window with the following signature:
