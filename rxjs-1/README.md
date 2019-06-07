@@ -89,7 +89,7 @@ leaderBoard$.subscribe(leaderBoard => {
 race.start();
 ```
 
-There are several ways of [calculating the time gap](https://cyclingtips.com/2012/06/how-time-gaps-are-calculated/), but we'll chose the simplest one: if, at a given time, the leader is at position X, the time gap of racer is the time it will take them to reach X with their current speed.
+There are several ways of [calculating the time gap](https://cyclingtips.com/2012/06/how-time-gaps-are-calculated/), but we'll chose the simplest one: if, at a given time, the leader car is at position X, the time gap for a car is the time it will take to reach X with its current speed.
 
 ## Preparation
 
