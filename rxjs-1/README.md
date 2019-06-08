@@ -83,7 +83,9 @@ leaderBoard$.subscribe(leaderBoard => {
     t.cell('Gap Time', `${car.leaderGapTime}ms`)
     t.newRow()
   });
-  process.stdout.write(`${t.toString()}\r`);
+  process.stdout.write(t.toString());
+  // clear current the table at next writing
+  process.stdout.moveCursor(0, -4)
 });
 
 race.start();
