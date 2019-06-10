@@ -10,6 +10,7 @@ window.bx = {
    * @see https://github.com/electron/electron/blob/master/docs/api/app.md#appgetname
    */
   getName(): Promise<string> {
+    // Value should come from `electron.app.getName()`
     ...
   }
   /**
@@ -17,6 +18,7 @@ window.bx = {
    * @see https://github.com/electron/electron/blob/master/docs/api/app.md#appgetversion
    */
   getVersion(): Promise<string> {
+    // Value should come from `electron.app.getVersion()`
     ...
   }
 }
@@ -25,7 +27,7 @@ _Instructions are also visible from the application itself until you solved the 
 
 ## Constraints
 
-- You are **NOT** allowed to enable `nodeIntegration`
+- You are **NOT** allowed to enable `nodeIntegration` flag
 - You are **NOT** allowed to use the [remote](https://electronjs.org/docs/api/remote) electron API
 
 ## Preparation
