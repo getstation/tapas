@@ -1,5 +1,6 @@
 {
   "name": "rxjs-1",
+  "private": true,
   "version": "1.0.0",
   "description": "The objective of this challenge is to implement a live leaderboard of a car race using RxJS.",
   "main": "race.js",

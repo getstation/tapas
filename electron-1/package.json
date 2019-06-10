@@ -1,5 +1,6 @@
 {
-  "name": "station-excercices",
+  "name": "electron-1",
+  "private": true,
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
