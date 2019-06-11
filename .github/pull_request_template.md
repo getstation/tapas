@@ -21,9 +21,9 @@ Link to documentations if necessary.
 > If any, list alternative solutions, valid
 or not, and explain your choice.
 
-> If you tried other solutions that did
-not work, it's a good opportunity to mention
-them.
+> If you considered or tried other solutions
+that did not work, it's a good opportunity
+to mention them.
 
 
 ## Critical analysis
