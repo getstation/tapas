@@ -7,7 +7,7 @@ The objective of this challenge is to create a list of people using React.
 - All CSS must be created using reactJSS
 - You should be able to drag and drop elements of your list. To ease this part, you must use [React DND](http://react-dnd.github.io/react-dnd/)
 - Add a "loading" indicator for when the users are being fetched
-- This challenge is using [React Hooks](https://reactjs.org/docs/hooks-intro.html), try to follow this philosophy whenev`er possible
+- This challenge is using [React Hooks](https://reactjs.org/docs/hooks-intro.html), try to follow this philosophy whenever possible
 - Drag and drop interactions should be animated. The look and feel of the animations are up to you
 
 ## Preparation
