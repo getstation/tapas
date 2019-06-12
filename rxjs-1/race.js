@@ -22,11 +22,15 @@ class Race extends EventEmitter {
     }))
   }
 
+  getCars() {
+    return ['Lightning McQueen', 'The King'];
+  }
+
   start() {
     this.index = 0;
     this.intervalId = setInterval(() => {
       this._tick();
-    
+
       if (this.index >= this.data.length) {
         clearInterval(this.intervalId);
         this.emit('end');
@@ -44,7 +48,7 @@ class Race extends EventEmitter {
     });
     this.emit('data', {
       time: item['Time car 2'],
-      carName: 'The King', 
+      carName: 'The King',
       xLocation: item['Location car 2']
     });
 
