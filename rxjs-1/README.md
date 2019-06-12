@@ -8,12 +8,13 @@ A race between 2 cars is happening on a straight line.
 The location of the 2 cars on the line are broadcasted live by a radar and are available as an [event-emitter](https://nodejs.org/api/events.html#events_class_eventemitter):
 
 ```js
-// `getRace` will use mocked data
-const { getRace } = require('./race');
-const race = getRace();
+// `startRace` will use mocked data
+const { startRace } = require('./race');
+const race$ = startRace();
+const raceEnd = race$.toPromise();
 
-// race is an event-emitter
-race.on('data', ({ time, carName, xLocation }) => {
+// race$ is an observable
+race$.subscribe(({ time, carName, xLocation }) => {
   // time (number) - is the time in ms since the begining of the race
   // carName (string) - the name of the car
   // xLocation (number) - the distance (in meter) of the car `carName` from
@@ -22,41 +23,37 @@ race.on('data', ({ time, carName, xLocation }) => {
   console.log(`At ${time}ms of the begining of the race, car ${carName} is at ${xLocation}m from the starting line`);
 });
 
-race.on('end', () => {
+raceEnd.then(() => {
   console.log('The race ended');
 });
 
-// will actually start the race
-race.start();
 ```
 
 ## Constraints
 - Use the most of RxJS in your implementation
-- Use the provided `getRace` exported in `race.js` to test your implementation
+- Use the provided `startRace` exported in `race.js` to test your implementation
 
 ## Challenge
 ### Calculate the speed
 
-Write a function `getCarSpeed`, that, given a `race` event-emiter and the name of a car, will return a RxJS Observable that emits the speed of the given car in _m/s_ **in live**.
+Write a function `getCarSpeed`, that, given a `race$` Observable and the name of a car, will return a RxJS Observable that emits the speed of the given car in _m/s_ **in live**.
 
 ```js
-const { getRace } = require('./race');
-const race = getRace();
+const { startRace } = require('./race');
+const race$ = startRace();
 
 const carName = `Lightning McQueen`;
 
-const speed$ = getCarSpeed(race, carName);
+const speed$ = getCarSpeed(race$, carName);
 
 // adding `\r` allows to overwrite the message in the same line
 speed$.subscribe(speed => process.stdout.write(`Speed: ${speed}m/s\r`));
-
-race.start();
 ```
 
 Speed is calculated using the car location in a 200ms window.
 
 ### Calculate the leader-board
-Write a function `getLeaderBoard`, that, given a `race` event-emiter, will return a RxJS Observable that emits in live a `leaderBoard` object representing the leader board **in live**.
+Write a function `getLeaderBoard`, that, given a `race$` Observable, will return a RxJS Observable that emits in live a `leaderBoard` object representing the leader board **in live**.
 
 `leaderBoard` is an array of object of `position` ordered items with:
 - `carName` the name of the car
@@ -68,8 +65,8 @@ Write a function `getLeaderBoard`, that, given a `race` event-emiter, will retur
 // will help with formating a table
 const Table = require('easy-table')
 
-const { getRace } = require('./race');
-const race = getRace();
+const { startRace } = require('./race');
+const race$ = startRace();
 
 
 const leaderBoard$ = getLeaderBoard(race);
@@ -88,7 +85,6 @@ leaderBoard$.subscribe(leaderBoard => {
   process.stdout.moveCursor(0, -4)
 });
 
-race.start();
 ```
 
 There are several ways of [calculating the time gap](https://cyclingtips.com/2012/06/how-time-gaps-are-calculated/), but we'll chose the simplest one: if, at a given time, the leader car is at position X, the time gap for a car is the time it will take to reach X with its current speed.

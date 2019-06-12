@@ -1,11 +1,14 @@
-const { getRace } = require('./race');
+const { startRace } = require('./race');
 
-const race = getRace();
+const race$ = startRace();
+const raceEnd = race$.toPromise();
 
-race.on('data', ({time, carName, xLocation}) => {
+race$.subscribe(({ time, carName, xLocation }) => {
   if (carName === 'Lightning McQueen') {
     process.stdout.write(`Time: ${time}, Location: ${xLocation}m\r`);
   }
 });
 
-race.start();
+raceEnd.then(() => {
+  process.stdout.write('\nend of stream\n');
+});

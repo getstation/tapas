@@ -2,61 +2,45 @@ const csvsync = require('csvsync');
 const fs = require('fs');
 const path = require('path');
 const { EventEmitter } = require('events');
+const { interval, from } = require('rxjs');
+const { map, flatMap, takeWhile } = require('rxjs/operators');
 
-class Race extends EventEmitter {
+const RACE_CSV_PATH = path.join(__dirname, 'race-data.csv');
 
-  constructor(raceDataCSVPath) {
-    super();
-    ;
-    this.data = csvsync.parse(
-      fs.readFileSync(raceDataCSVPath),
-      {
-        returnObject: true
-      }
-    ).map(data => ({
-      ...data,
-      'Time car 1': parseFloat(data['Time car 1'], 10),
-      'Time car 2': parseFloat(data['Time car 2'], 10),
-      'Location car 1': parseFloat(data['Location car 1'], 10),
-      'Location car 2': parseFloat(data['Location car 2'], 10)
-    }))
-  }
+const parseRaceData = (data) => ({
+  ...data,
+  'Time car 1': parseFloat(data['Time car 1'], 10),
+  'Time car 2': parseFloat(data['Time car 2'], 10),
+  'Location car 1': parseFloat(data['Location car 1'], 10),
+  'Location car 2': parseFloat(data['Location car 2'], 10),
+});
 
-  start() {
-    this.index = 0;
-    this.intervalId = setInterval(() => {
-      this._tick();
-    
-      if (this.index >= this.data.length) {
-        clearInterval(this.intervalId);
-        this.emit('end');
-      }
-    }, 50);
-  }
+const getRaceData = (raceDataCSVPath) => {
+  return csvsync.parse(
+    fs.readFileSync(raceDataCSVPath),
+    {
+      returnObject: true
+    }
+  ).map(parseRaceData);
+};
 
-  _tick() {
-    const item = this.data[this.index];
+const createRaceObservable = (raceDataCSVPath, ms) => {
+  const data = getRaceData(raceDataCSVPath);
+  return interval(ms)
+    .pipe(
+      map((index) => data[index]),
+      takeWhile(item => Boolean(item)),
+      flatMap((item) =>
+        from([
+          { time: item['Time car 1'], carName: 'Lightning McQueen', xLocation: item['Location car 1'] },
+          { time: item['Time car 2'], carName: 'The King', xLocation: item['Location car 2'] },
+        ])
+      ),
+    );
+};
 
-    this.emit('data', {
-      time: item['Time car 1'],
-      carName: 'Lightning McQueen',
-      xLocation: item['Location car 1']
-    });
-    this.emit('data', {
-      time: item['Time car 2'],
-      carName: 'The King', 
-      xLocation: item['Location car 2']
-    });
-
-    this.index += 1;
-  }
-}
-
-function getRace() {
-  return new Race(path.join(__dirname, 'race-data.csv'));
-}
+const startRace = () => createRaceObservable(RACE_CSV_PATH, 50);
 
 module.exports = {
-  getRace,
-  Race,
+  startRace,
 };
