@@ -4,6 +4,7 @@ A collection of delicious technical challenges.
 ## Challenges
 - [electron-1](https://github.com/getstation/tapas/tree/master/electron-1): declare and implement a new API on the Window object in an Electron application
 - [rxjs-1](https://github.com/getstation/tapas/tree/master/rxjs-1): implement a live leaderboard of a car race using RxJS
+- [react-1](https://github.com/getstation/tapas/tree/master/react-1): create a list of people using React
 
 ## Candidate instructions
 The objective of the exercise is to mimic real work conditions, which includes code, iterations, research and communication. 😀
