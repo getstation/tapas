@@ -14,12 +14,11 @@ function createWindow() {
 
       // ------
       // You are not allowed to change the value
-      // of this 2 flags
+      // of this 3 flags
       nodeIntegration: false,
       enableRemoteModule: false,
+      additionalArguments: []
       // ------
-
-
     },
   });
 
