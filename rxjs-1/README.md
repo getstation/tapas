@@ -26,6 +26,10 @@ race.on('end', () => {
   console.log('The race ended');
 });
 
+// get the name of the cars actually running the race
+const carNames = race.getCars();
+console.log('Participants:', carNames.join('/'));
+
 // will actually start the race
 race.start();
 ```
