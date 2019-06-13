@@ -116,3 +116,4 @@ node example.js
  - [Interactive diagrams of Rx Observables](http://rxmarbles.com/) - André Staltz
  - [Rx Visualizer](https://rxviz.com) - Animated playground for Rx Observables by Misha Moroshko
  
+*Tips:* for this challenge, among others, you might find these operators useful: _filter_, _map_, _throttleTime_, _buffer_ and friends, _combineLatest_, _window_ and friends, _mergeAll_, _take_ and friends, _flatMap_ and friends, _interval_.
