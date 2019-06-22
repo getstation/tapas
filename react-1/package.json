@@ -4,8 +4,12 @@
   "private": true,
   "dependencies": {
     "@getstation/theme": "^0.10.1",
+    "axios": "^0.19.0",
+    "immutability-helper": "^3.0.1",
     "jss": "^10.0.0-alpha.17",
     "react": "^16.8.6",
+    "react-dnd": "^8.0.3",
+    "react-dnd-html5-backend": "^8.0.3",
     "react-dom": "^16.8.6",
     "react-jss": "^10.0.0-alpha.17",
     "react-scripts": "3.0.1"
