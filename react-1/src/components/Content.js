@@ -11,12 +11,18 @@ const useStyles = createUseStyles({
     margin: 30,
     boxShadow: '0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12),0 8px 10px -5px rgba(0,0,0,.2)',
     backgroundImage: props => props.themeGradient,
+    borderRadius: '13px'
   },
 
   element : {
     borderStyle: 'solid',
     borderWidth: '1px',
     listStyleType: 'none'
+
+  },
+  ul : {
+    margin: 0,
+    padding: 0,
 
   }
 });
@@ -65,7 +71,7 @@ function Content(props) {
   }
   return (
     <section className={ classes.Content} >
-      <ul>
+      <ul className={ classes.ul} >
         { isLoading ? 
           <div>data loading....</div>:
           cards.map((card, i) => renderCard(card, i))}
