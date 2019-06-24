@@ -29,6 +29,7 @@ _Instructions are also visible from the application itself until you solved the 
 
 - You are **NOT** allowed to enable `nodeIntegration` flag
 - You are **NOT** allowed to use the [remote](https://electronjs.org/docs/api/remote) electron API
+- You are **NOT** allowed to edit the `html` file
 
 ## Preparation
 
