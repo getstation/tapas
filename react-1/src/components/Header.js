@@ -1,10 +1,9 @@
-import { GradientType, withGradient } from '@getstation/theme';
 import React from 'react';
 import { createUseStyles } from 'react-jss'
 
 const useStyles = createUseStyles({
   Header: {
-    backgroundImage: props => props.themeGradient,
+    backgroundImage: 'linear-gradient(0deg, #1410B8 0%, #4ED8E4 100%)',
     height: 60,
     color: 'white',
     display: 'flex',
@@ -24,4 +23,4 @@ function Header(props) {
   );
 }
 
-export default withGradient(GradientType.withDarkOverlay)(Header);
+export default Header;
