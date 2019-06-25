@@ -15,6 +15,8 @@ At some point, you'll need to suggest a solution to your assigned challenges.
 To do so, fork this repository and make a pull request **in your own fork**
 with your implementation. You can make one pull request per challenge.
 
+⚠️ Make a pull request **in your own fork**. **in your own fork**
+
 We'll use this pull request to iterate, review and discuss your implementation. Early draft of solution via a pull-request are encouraged.
 
 When submitting the pull request, you need to answer few questions. These questions are listed in the [pull request template](https://github.com/getstation/tapas/tree/master/.github/pull_request_template.md).
