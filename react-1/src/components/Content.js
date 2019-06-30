@@ -1,5 +1,8 @@
-import React from 'react';
-import { createUseStyles } from 'react-jss'
+import React, { useState, useEffect } from 'react';
+import { createUseStyles } from 'react-jss';
+import { DndProvider } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+import FakeUser from './FakeUser';
 
 const useStyles = createUseStyles({
   Content: {
@@ -12,10 +15,31 @@ const useStyles = createUseStyles({
 
 function Content(props) {
   const classes = useStyles(props);
+  const [fakeUsers, setFakeUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("http://jsonplaceholder.typicode.com/users")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setFakeUsers(result);
+        },
+        (error) => {
+          throw error;
+        }
+      );
+  });
+
   return (
-    <section className={classes.Content}>
-      Here goes your lists
-    </section>
+    <DndProvider backend={HTML5Backend}>
+      <section className={classes.Content}>
+        <ul>
+          {fakeUsers.map((fakeUser, i) => (
+            <FakeUser key={i} name={fakeUser.name} email={fakeUser.email}/>
+          ))}
+        </ul>
+      </section>
+    </DndProvider>
   );
 }
 

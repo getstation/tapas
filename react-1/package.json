@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.4.5",
+    "@csstools/normalize.css": "^10.1.0",
     "jss": "^10.0.0-alpha.17",
     "react": "^16.8.6",
+    "react-dnd": "^8.0.3",
+    "react-dnd-html5-backend": "^8.0.3",
     "react-dom": "^16.8.6",
     "react-jss": "^10.0.0-alpha.17",
     "react-scripts": "3.0.1"
@@ -29,5 +33,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-preset-react-app": "^9.0.0"
   }
 }
