@@ -16,6 +16,7 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     flexDirection: 'column',
     width: '100%',
+    overflow: 'hidden',
   }
 });
 
