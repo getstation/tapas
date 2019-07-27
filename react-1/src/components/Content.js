@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { createUseStyles } from "react-jss";
 import request from "superagent";
 import User from "./User";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import update from "immutability-helper";
 
 const useStyles = createUseStyles({
   Content: {
@@ -18,6 +21,15 @@ const Content = props => {
   const classes = useStyles(props);
   const [users, setUsers] = useState([]);
 
+  const moveUser = (dragIndex, hoverIndex) => {
+    const dragCard = users[dragIndex];
+    setUsers(
+      update(users, {
+        $splice: [[dragIndex, 1], [hoverIndex, 0, dragCard]]
+      })
+    );
+  };
+
   useEffect(() => {
     request
       .get("http://jsonplaceholder.typicode.com/users")
@@ -31,9 +43,11 @@ const Content = props => {
   }, []);
   return (
     <section className={classes.Content}>
-      {users.map((user, key) => (
-        <User user={user} key={key} />
-      ))}
+      <DndProvider backend={HTML5Backend}>
+        {users.map((user, i) => (
+          <User user={user} index={i} moveUser={moveUser} />
+        ))}
+      </DndProvider>
     </section>
   );
 };

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "immutability-helper": "^3.0.1",
     "jss": "^10.0.0-alpha.17",
     "react": "^16.8.6",
     "react-dnd": "^9.3.2",
