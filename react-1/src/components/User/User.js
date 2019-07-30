@@ -1,20 +1,63 @@
-import React, { useImperativeHandle, useRef } from "react";
+import React, { useRef } from "react";
 import { useStyles } from "./style";
-import { DragSource, DropTarget } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import ItemTypes from "./ItemTypes";
 
-const User = React.forwardRef((props, ref) => {
+const User = props => {
+  const { user, id, index, moveUser } = props;
   const classes = useStyles(props);
-  const { user, isDragging, connectDragSource, connectDropTarget } = props;
-  const elementRef = useRef(null);
-  connectDragSource(elementRef);
-  connectDropTarget(elementRef);
+  const ref = useRef(null);
+  const [, drop] = useDrop({
+    accept: ItemTypes.USER,
+    hover(item, monitor) {
+      if (!ref.current) {
+        return;
+      }
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex) {
+        return;
+      }
+      // Determine rectangle on screen
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
+      // Get vertical middle
+      const hoverMiddleY =
+        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset();
+      // Get pixels to the top
+      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return;
+      }
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return;
+      }
+      // Time to actually perform the action
+      moveUser(dragIndex, hoverIndex);
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex;
+    }
+  });
+  const [{ isDragging }, drag] = useDrag({
+    item: { type: ItemTypes.USER, id, index },
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    })
+  });
   const opacity = isDragging ? 0 : 1;
-  useImperativeHandle(ref, () => ({
-    getNode: () => elementRef.current
-  }));
+  drag(drop(ref));
   return (
-    <div ref={elementRef} className={classes.User} style={{ opacity }}>
+    <div ref={ref} className={classes.User} style={{ opacity }}>
       <div className={classes.Info}>
         <div className={classes.Flex}>{user.name}</div>
         <div className={classes.Flex}>{user.email}</div>
@@ -24,54 +67,6 @@ const User = React.forwardRef((props, ref) => {
       </div>
     </div>
   );
-});
+};
 
-export default DropTarget(
-  ItemTypes.User,
-  {
-    hover(props, monitor, component) {
-      if (!component) {
-        return null;
-      }
-      const node = component.getNode();
-      if (!node) {
-        return null;
-      }
-      const dragIndex = monitor.getItem().index;
-      const hoverIndex = props.index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      const hoverBoundingRect = node.getBoundingClientRect();
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      props.moveUser(dragIndex, hoverIndex);
-      monitor.getItem().index = hoverIndex;
-    }
-  },
-  connect => ({
-    connectDropTarget: connect.dropTarget()
-  })
-)(
-  DragSource(
-    ItemTypes.User,
-    {
-      beginDrag: props => ({
-        id: props.id,
-        index: props.index
-      })
-    },
-    (connect, monitor) => ({
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging()
-    })
-  )(User)
-);
+export default User;
