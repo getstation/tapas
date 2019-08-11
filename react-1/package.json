@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.5.5",
+    "immutability-helper": "2.3.1",
     "jss": "^10.0.0-alpha.23",
     "react": "^16.8.6",
     "react-dnd": "^9.3.4",
     "react-dnd-html5-backend": "^9.3.4",
     "react-dom": "^16.8.6",
     "react-jss": "^10.0.0-alpha.23",
-    "react-scripts": "3.0.1"
+    "react-motion": "0.5.2",
+    "react-scripts": "3.0.1",
+    "react-spring": "5.6.10"
   },
   "scripts": {
     "start": "react-scripts start",

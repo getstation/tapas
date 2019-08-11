@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {createUseStyles} from 'react-jss'
+import {createUseStyles} from 'react-jss';
+import { DndProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import update from 'immutability-helper';
 import Loader from './Loader';
 import User from './User';
 
@@ -14,7 +17,7 @@ const useStyles = createUseStyles({
         height: '67vh',
         paddingInlineStart: 0,
         borderRadius: "15px",
-        marginBlockStart: 0,
+        marginBlockStart: 30,
         marginBlockEnd: 0,
         listStyleType: "none",
         boxShadow: '0 0 60px -30px rgba(0,0,0,0.75)',
@@ -23,14 +26,7 @@ const useStyles = createUseStyles({
         '-ms-overflow-style': 'none',
         '&::-webkit-scrollbar': {
             width: '0 !important'
-        },
-        backgroundImage:
-            '-webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95e0c0), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #95e0c0), color-stop(100%, rgba(255, 255, 255, 0)))',
-        backgroundPosition: "0 0, 0 100%, 0 0, 0 100%",
-        backgroundRepeat: "no-repeat",
-        backgroundColor: "white",
-        backgroundSize: "100% 5em, 100% 5em, 100% 1em, 100% 1em",
-        backgroundAttachment: "local, local, scroll, scroll"
+        }
     }
 });
 
@@ -39,6 +35,14 @@ const Content = props => {
     const [hasError, setErrors] = useState(false);
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
+    const moveUser = (dragIndex, hoverIndex) => {
+        const dragUser = users[dragIndex];
+        setUsers(
+            update(users, {
+                $splice: [[dragIndex, 1], [hoverIndex, 0, dragUser]],
+            }),
+        )
+    };
 
     async function fetchData() {
         const res = await fetch("http://jsonplaceholder.typicode.com/users");
@@ -58,7 +62,9 @@ const Content = props => {
         <section className={classes.Content}>
             {loading ? <Loader/> : null}
             <ul className={classes.List}>
-                {users.map((user, i) => (<User user={user} key={i}/>))}
+                <DndProvider backend={HTML5Backend}>
+                    {users.map((user, i) => (<User user={user} index={i} key={user.id} id={user.id} moveUser={moveUser}/>))}
+                </DndProvider>
             </ul>
         </section>
     );
