@@ -34,13 +34,14 @@ const User = React.forwardRef(
     ({user, isDragging, connectDragSource, connectDropTarget}, ref) => {
         const classes = useStyles({user, isDragging, connectDragSource, connectDropTarget});
         const elementRef = useRef(null);
+        const opacity = Number(!isDragging);
         connectDragSource(elementRef);
         connectDropTarget(elementRef);
         useImperativeHandle(ref, () => ({
             getNode: () => elementRef.current,
         }));
         return (
-            <li className={classes.User} ref={elementRef}>
+            <li className={classes.User} style={{opacity}} ref={elementRef}>
                 <div className={classes.Infos}>
                     <span className={classes.UserName}>{user.name}</span>
                     <br/>

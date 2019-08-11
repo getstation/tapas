@@ -59,14 +59,14 @@ const Content = props => {
     }, []);
 
     return (
-        <section className={classes.Content}>
-            {loading ? <Loader/> : null}
-            <ul className={classes.List}>
-                <DndProvider backend={HTML5Backend}>
-                    {users.map((user, i) => (<User user={user} index={i} key={user.id} id={user.id} moveUser={moveUser}/>))}
-                </DndProvider>
-            </ul>
-        </section>
+        <DndProvider backend={HTML5Backend}>
+            <section className={classes.Content}>
+                {loading ? <Loader/> : null}
+                    <ul className={classes.List}>
+                        {users.map((user, i) => (<User user={user} index={i} key={user.id} id={user.id} moveUser={moveUser}/>))}
+                    </ul>
+            </section>
+        </DndProvider>
     );
 };
 

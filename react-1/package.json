@@ -12,8 +12,7 @@
     "react-dom": "^16.8.6",
     "react-jss": "^10.0.0-alpha.23",
     "react-motion": "0.5.2",
-    "react-scripts": "3.0.1",
-    "react-spring": "5.6.10"
+    "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
