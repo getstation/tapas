@@ -51,11 +51,14 @@ npm start
 - `.eslintrc` puts in place the linting rules that we are using at Station
 
 NB: The extension supports hot reload, so the extension should refresh itself in dev mode
+
 NB2: Prettier is also installed, you are invited to use it 😉
+
 NB3: By default, it starts Chrome browser for development, by you can edit the `start` script to start Firefox instead
 
 ### How to debug
 In Chrome: https://developer.chrome.com/extensions/tut_debugging
+
 In Firefox: https://extensionworkshop.com/documentation/develop/debugging/
 
 ## Resources for Web Extensions
