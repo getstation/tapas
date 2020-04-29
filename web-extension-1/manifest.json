@@ -10,7 +10,9 @@
     "128": "icons/icon-128.png"
   },
   "permissions": [
-    "<all_urls>"
+    "<all_urls>",
+    "activeTab",
+    "tabs"
   ],
   "background": {
     "scripts": ["browser-polyfill.min.js", "background.js"],
