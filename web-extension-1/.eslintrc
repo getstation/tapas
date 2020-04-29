@@ -1,0 +1,176 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "webextensions": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "chrome": "off",
+    "process": "readonly",
+    "analytics": "readonly"
+  },
+  "plugins": ["@typescript-eslint", "import", "ramda", "functional", "react-hooks"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "plugin:react/recommended",
+    "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    "plugin:prettier/recommended" // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+  ],
+  "rules": {
+    "constructor-super": 2,
+    "for-direction": 2,
+    "getter-return": 2,
+    "no-async-promise-executor": 2,
+    "no-case-declarations": 2,
+    "no-class-assign": 2,
+    "no-compare-neg-zero": 2,
+    "no-cond-assign": 2,
+    "no-const-assign": 2,
+    "no-constant-condition": 2,
+    "no-control-regex": 2,
+    "no-debugger": 2,
+    "no-delete-var": 2,
+    "no-dupe-args": 2,
+    "no-dupe-class-members": 2,
+    "no-dupe-keys": 2,
+    "no-duplicate-case": 2,
+    "no-empty": 2,
+    "no-empty-character-class": 2,
+    "no-empty-pattern": 2,
+    "no-ex-assign": 2,
+    "no-extra-boolean-cast": 2,
+    "no-extra-semi": 2,
+    "no-fallthrough": 2,
+    "no-func-assign": 2,
+    "no-global-assign": 2,
+    "no-inner-declarations": 2,
+    "no-invalid-regexp": 2,
+    "no-irregular-whitespace": 2,
+    "no-misleading-character-class": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "no-new-symbol": 2,
+    "no-obj-calls": 2,
+    "no-octal": 2,
+    "no-prototype-builtins": 0,
+    "no-redeclare": 2,
+    "no-regex-spaces": 2,
+    "no-self-assign": 2,
+    "no-shadow-restricted-names": 2,
+    "no-sparse-arrays": 2,
+    "no-this-before-super": 2,
+    "no-undef": 2,
+    "no-unexpected-multiline": 2,
+    "no-unreachable": 2,
+    "no-unsafe-finally": 2,
+    "no-unsafe-negation": 2,
+    "no-unused-labels": 2,
+    "@typescript-eslint/no-unused-vars": [1, { "argsIgnorePattern": "^_" }],
+    "no-useless-catch": 2,
+    "no-useless-escape": 2,
+    "no-with": 2,
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
+    "require-yield": 2,
+    "use-isnan": 2,
+    "valid-typeof": 2,
+
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-empty-interface": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "ramda/any-pass-simplification": "error",
+    "ramda/both-simplification": "error",
+    "ramda/complement-simplification": "error",
+    "ramda/compose-pipe-style": 0,
+    "ramda/compose-simplification": "error",
+    "ramda/cond-simplification": "error",
+    "ramda/either-simplification": "error",
+    "ramda/eq-by-simplification": "error",
+    "ramda/filter-simplification": "error",
+    "ramda/if-else-simplification": "error",
+    "ramda/map-simplification": "error",
+    "ramda/merge-simplification": "error",
+    "ramda/no-redundant-and": "error",
+    "ramda/no-redundant-not": "error",
+    "ramda/no-redundant-or": "error",
+    "ramda/pipe-simplification": "error",
+    "ramda/prefer-both-either": "error",
+    "ramda/prefer-complement": "error",
+    "ramda/prop-satisfies-simplification": "error",
+    "ramda/reduce-simplification": "error",
+    "ramda/reject-simplification": "error",
+    "ramda/set-simplification": "error",
+    "ramda/unless-simplification": "error",
+    "ramda/when-simplification": "error",
+    "functional/immutable-data": "error",
+    "import/no-relative-parent-imports": "error",
+    "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/class-name-casing": 2
+  },
+  "settings": {
+    "react": {
+      "pragma": "React", // Pragma to use, default to "React"
+      "version": "detect" // React version. "detect" automatically picks the version you have installed.
+      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // default to latest and warns if missing
+      // It will default to "detect" in the future
+    }
+  },
+  "overrides": [
+    {
+      "files": ["src/content_script/**/*.ts"],
+      "rules": {
+        "functional/immutable-data": [
+          "error",
+          {
+            "ignorePattern": ["^document", "^window"] // allow mutate the DOM in content scripts
+          }
+        ],
+        "@typescript-eslint/no-use-before-define": ["error", { "functions": false }]
+      }
+    },
+    {
+      "files": ["webpack/*.ts"],
+      "env": {
+        "node": true, // webpack is a node environment
+        "browser": false,
+        "webextensions": false
+      }
+    },
+    {
+      "files": [
+        "**/__tests__/*.ts",
+        "**/__tests__/*.tsx",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/*.spec.ts",
+        "**/*.spec.tsx"
+      ],
+      "extends": ["plugin:jest/recommended"],
+      "env": {
+        "browser": false, // should be covered by integrations tests
+        "webextensions": false // should be covered by integrations tests
+      },
+      "rules": {
+        "jest/expect-expect": 0,
+        "jest/no-disabled-tests": 0,
+        "import/no-relative-parent-imports": 0,
+        "jest/no-standalone-expect": 0
+      }
+    },
+    {
+      "files": ["*.md"],
+      "plugins": ["@getstation/eslint-plugin-markdown"]
+    }
+  ]
+}

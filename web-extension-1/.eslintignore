@@ -1,0 +1,6 @@
+# Distribution
+dist/*
+
+# Markdown files for now
+**/*.md
+
