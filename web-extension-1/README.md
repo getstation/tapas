@@ -17,7 +17,7 @@ This challenge heavily relies on asynchronous communications between each proces
 For that, you will mainly need to leverage [communications with background scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts#Communicating_with_background_scripts)
 
 This repository is based on the [Browser Extensions standard](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions).
-As Chrome doesn't officialy support this API yet, we use [a polyfill developped by Mozilla]((https://github.com/mozilla/webextension-polyfill))
+As Chrome doesn't officialy support this API yet, we use [a polyfill developped by Mozilla](https://github.com/mozilla/webextension-polyfill)
 in order to have a common codebase for all browsers.
 
 ### Constraints
