@@ -20,14 +20,18 @@ This repository is based on the [Browser Extensions standard](https://developer.
 As Chrome doesn't officialy support this API yet, we use [a polyfill developped by Mozilla](https://github.com/mozilla/webextension-polyfill)
 in order to have a common codebase for all browsers.
 
-### Constraints
+### Expectations
+Your implementation should match the following requirements:
 - Clicking the Extension icon should open the popup (already done in this boilerplate)
 - When the popup opens-up, it should increment a counter (named **C**) that will be available by any content script.
 Hint: store the data through the [background page](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background)
 - When navigating to any web page, its content must be replaced by the following value:
 `Popup opened <C> times`, with `<C>` being our **C** counter value.
 - When the popup opens-up, if any page have the counter currently shown up, it's value should be updated in real-time.
-For this a solution involving a subscription mechanism is preferable.
+**For this a solution involving a subscription mechanism is preferable**.
+- Bonus: Replace the global **C** counter by multiple counters, each tied to its own Tab.
+e.g If I have _Tab A_ and _Tab B_ opened, with _Tab A_ currently active, opening the popup should only increment
+the counter on _Tab A_ and keep _Tab B_ counter untouched.
 
 ## Preparation
 ```sh
