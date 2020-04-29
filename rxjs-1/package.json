@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "csvsync": "^1.1.0",
+    "csvsync": "^1.3.2",
     "easy-table": "^1.1.1",
-    "rxjs": "^6.5.2"
+    "rxjs": "^6.5.5"
   }
 }
