@@ -1,5 +1,5 @@
 # Web Extensions communication layer
-The objective of this challenge is implement inter-process communication between some processes that are available in a Web Extension.
+Objective: implement real-time inter-process communication between some processes that are available in a Web Extension.
 
 ## Challenge
 Replace the content of any page with a counter showing in real time how many time the extension popup has been opened.
