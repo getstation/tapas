@@ -20,7 +20,7 @@ This repository is based on the [Browser Extensions standard](https://developer.
 As Chrome doesn't officialy support this API yet, we use [a polyfill developped by Mozilla](https://github.com/mozilla/webextension-polyfill)
 in order to have a common codebase for all browsers.
 
-### Expectations
+## Expectations
 Your implementation should match the following requirements:
 - Clicking the Extension icon should open the popup (already done in this boilerplate)
 - When the popup opens-up, it should increment a counter (named **C**) that will be available by any content script.
