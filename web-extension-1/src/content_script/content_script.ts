@@ -1,29 +1,33 @@
-const port = browser.runtime.connect(browser.runtime.id, { name: 'content_script/lifecycle' });
+import { MessageContentToBackgroundI, MessageBackgroundToContentI, MessagePopupToContentI } from 'interfaces';
 
-port.onMessage.addListener(m => {
-  insertCounter(m.counter);
-});
+(() => {
+  const port = browser.runtime.connect(browser.runtime.id, { name: 'content_script/lifecycle' });
 
-// perform cleanup here
-port.onDisconnect.addListener(() => {
-  console.log('cleanup');
-});
+  const removeEverything = () => {
+    while (document.body.firstChild) {
+      document.body.firstChild.remove();
+    }
+  };
 
-const removeEverything = () => {
-  while (document.body.firstChild) {
-    document.body.firstChild.remove();
-  }
-};
+  const insertCounter = (counter: number) => {
+    removeEverything();
+    const counterElement = document.createTextNode(`Popup opened ${counter} times on this tab`);
+    document.body.appendChild(counterElement);
+  };
 
-const insertCounter = counter => {
-  removeEverything();
-  const counterElement = document.createTextNode(`La fenêtre contextuelle a ouvert ${counter} fois sur cet onglet`);
-  document.body.appendChild(counterElement);
-};
+  port.onMessage.addListener(({ counter }: MessageBackgroundToContentI) => {
+    insertCounter(counter);
+  });
 
-const changeCounterValue = request => {
-  port.postMessage({ tabId: request.tabId });
-};
+  const incrementCounterValue = ({ tabId }: MessagePopupToContentI) => {
+    const messageData: MessageContentToBackgroundI = { tabId };
+    port.postMessage(messageData);
+  };
 
-// insertCounter(0);
-browser.runtime.onMessage.addListener(changeCounterValue);
+  // perform cleanup here
+  port.onDisconnect.addListener(() => {
+    browser.runtime.onMessage.removeListener(incrementCounterValue);
+  });
+
+  browser.runtime.onMessage.addListener(incrementCounterValue);
+})();

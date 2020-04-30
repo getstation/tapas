@@ -1,28 +1,35 @@
-const setupBackground = async () => {
-  console.log('setup background');
-};
+import { MessageContentToBackgroundI } from 'interfaces';
 
-browser.runtime.onInstalled.addListener(setupBackground);
+(() => {
+  const setupBackground = async () => {
+    console.log('setup background');
+  };
 
-const ports = [];
-let counters = {};
+  browser.runtime.onInstalled.addListener(setupBackground);
 
-const connected = port => {
-  const senderTabId = port.sender.tab.id;
-  port.postMessage({ counter: getCounterValue(senderTabId) });
+  let ports: { [key: number]: browser.runtime.Port } = {};
+  let counters: { [key: number]: number } = {};
 
-  port.onMessage.addListener(message => {
-    const tabId = message.tabId;
-    const currentPort = ports[tabId];
-    counters = incrementCounter(tabId);
-    currentPort.postMessage({ counter: getCounterValue(tabId) });
-  });
+  const getCounterValue = (tabId: number) => counters[tabId] || 0;
+  const incrementCounter = (tabId: number) => ({ ...counters, [tabId]: getCounterValue(tabId) + 1 });
 
-  ports[senderTabId] = port;
-};
+  const connected = (port: browser.runtime.Port) => {
+    const senderTabId = port.sender?.tab?.id;
 
-const incrementCounter = tabId => ({ ...counters, [tabId]: getCounterValue(tabId) + 1 });
+    if (!senderTabId) {
+      throw new Error('Tab id is missing in sender');
+    }
 
-const getCounterValue = tabId => counters[tabId] || 0;
+    port.postMessage({ counter: getCounterValue(senderTabId) });
 
-browser.runtime.onConnect.addListener(connected);
+    port.onMessage.addListener(({ tabId }: MessageContentToBackgroundI) => {
+      const currentPort = ports[tabId];
+      counters = incrementCounter(tabId);
+      currentPort.postMessage({ counter: getCounterValue(tabId) });
+    });
+
+    ports = { ...ports, [senderTabId]: port };
+  };
+
+  browser.runtime.onConnect.addListener(connected);
+})();
