@@ -1,13 +1,13 @@
-const { Observable } = require("rxjs");
 const { bufferTime, filter, map } = require("rxjs/operators");
+const fromStream = require("./fromStream");
 const { getRace } = require("./race");
 const race = getRace();
 
 const carName = `Lightning McQueen`;
 
 const getCarSpeed = (race, carName) => {
-  const filterByCar = ({ carName: currentCarname }) =>
-    currentCarname === carName;
+  const filterByCar = ({ carName: currentCarName }) =>
+    currentCarName === carName;
 
   const calculateSpeedInInterval = (interval) => {
     if (!interval || !interval.length) {
@@ -22,29 +22,7 @@ const getCarSpeed = (race, carName) => {
     return Math.round(distanceInMeter / timeInSecond);
   };
 
-  return new Observable((observer) => {
-    const dataHandler = (data) => {
-      observer.next(data);
-    };
-
-    const errorHandler = (err) => {
-      observer.error(err);
-    };
-
-    const endHandler = () => {
-      observer.complete();
-    };
-
-    race.addListener("data", dataHandler);
-    race.addListener("error", errorHandler);
-    race.addListener("end", endHandler);
-
-    return () => {
-      race.removeListener("data", dataHandler);
-      race.removeListener("error", errorHandler);
-      race.removeListener("end", endHandler);
-    };
-  })
+  return fromStream(race)
     .pipe(filter(filterByCar))
     .pipe(bufferTime(200))
     .pipe(map(calculateSpeedInInterval));
